@@ -1,0 +1,5 @@
+{
+    "api_source": "yfinance",
+    "storage_path": "data/companies",
+    "db_path": "data/stocks.db"
+}
