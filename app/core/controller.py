@@ -1,6 +1,6 @@
 from typing import Optional, Tuple, Dict, Any
 from app.core.storage_manager import StorageManager
-from app.core.api.yfinance_source import YFinanceSource
+from app.core.api.factory import get_stock_data_source
 from app.core.api.resolver import DataResolver
 from app.core.config_manager import ConfigManager
 
@@ -9,8 +9,11 @@ class StockAppController:
         self.config = ConfigManager()
         self.storage = StorageManager()
         self.resolver = DataResolver()
-        # In a real app, we might support multiple sources based on config
-        self.api = YFinanceSource()
+        self.api = get_stock_data_source(self.config)
+
+    def reload_api_source(self):
+        """Re-initializes the API source based on current config."""
+        self.api = get_stock_data_source(self.config)
 
     def get_all_stocks(self):
         return self.storage.get_stocks()
